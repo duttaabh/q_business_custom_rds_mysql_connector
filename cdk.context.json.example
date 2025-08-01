@@ -1,0 +1,49 @@
+{
+  "_comment": "Q Business Aurora MySQL Connector Configuration",
+  "_instructions": "Copy this file to cdk.context.json and update with your actual values",
+  
+  "vpc_id": "vpc-xxxxxxxxx",
+  "subnet_ids": [
+    "subnet-xxxxxxxxx",
+    "subnet-yyyyyyyyy"
+  ],
+  "security_group_ids": [
+    "sg-xxxxxxxxx"
+  ],
+  
+  "db_secret_arn": "arn:aws:secretsmanager:us-east-1:123456789012:secret:your-aurora-secret-name-AbCdEf",
+  "db_host": "your-aurora-cluster.cluster-xxxxxxxxx.us-east-1.rds.amazonaws.com",
+  "db_port": "3306",
+  "db_name": "your_database_name",
+  "db_username": "admin",
+  
+  "qbusiness_application_id": "12345678-1234-1234-1234-123456789012",
+  "qbusiness_index_id": "87654321-4321-4321-4321-210987654321",
+  "qbusiness_data_source_id": "abcdef12-3456-7890-abcd-ef1234567890",
+  
+  "tables_config": "[{\"name\": \"users\", \"title_field\": \"id\", \"content_fields\": [\"username\", \"email\", \"first_name\", \"last_name\"], \"metadata_fields\": [\"created_at\", \"updated_at\", \"is_active\"], \"where_clause\": \"is_active = 1\", \"limit\": 1000}, {\"name\": \"products\", \"title_field\": \"product_id\", \"content_fields\": [\"name\", \"description\", \"category\"], \"metadata_fields\": [\"price\", \"created_date\", \"status\"], \"where_clause\": \"status = 'active'\", \"limit\": 500}]",
+  
+  "_configuration_notes": {
+    "vpc_id": "Your VPC ID where Aurora cluster resides",
+    "subnet_ids": "List of subnet IDs (preferably private with NAT Gateway)",
+    "security_group_ids": "Security groups allowing Lambda to access Aurora and internet",
+    "db_secret_arn": "Full ARN of your Secrets Manager secret containing database credentials",
+    "db_host": "Aurora cluster endpoint (writer endpoint recommended)",
+    "db_port": "Database port (usually 3306 for MySQL)",
+    "db_name": "Database/schema name to connect to",
+    "db_username": "Database username (should match the one in Secrets Manager)",
+    "qbusiness_application_id": "Q Business Application ID (create first using AWS CLI or Console)",
+    "qbusiness_index_id": "Q Business Index ID (create within the application)",
+    "qbusiness_data_source_id": "Q Business Data Source ID (create within the index)",
+    "tables_config": "JSON string array of table configurations - customize based on your schema"
+  },
+  
+  "_table_config_example": {
+    "name": "Table name in your database",
+    "title_field": "Field to use as document title (usually primary key)",
+    "content_fields": "Array of fields to include in document body",
+    "metadata_fields": "Array of fields to include as document metadata",
+    "where_clause": "Optional SQL WHERE clause to filter records",
+    "limit": "Maximum number of records to sync per table"
+  }
+}
